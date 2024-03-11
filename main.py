@@ -22,13 +22,16 @@ def housePlay():
     print(houseCards, score)
   return score
 
-def payOut(houseScore, playerScore, chips, bet):
+def payOut(houseScore, playerScore, playerChips, bet):
   if playerScore > 21 or playerScore < houseScore:
     print('you lost :(')
-  else:
-    chips += bet*2
-    print('you win! :D')
-  return chips
+  elif playerScore == 21 and houseScore == 21:
+    playerChips += bet
+    print('Its a push :l')
+  else: 
+    playerChips += bet*2
+    print('You win! :D')
+  return playerChips
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
