@@ -20,3 +20,12 @@ def payOut(houseScore, playerScore, chips, bet):
     chips += bet*2
     print('you win! :D')
   return chips
+
+def housePlay(houseCards):
+  score = sumArray(houseCards)
+  print(houseCards, score)
+  while score < 17:
+    houseCards.append(deal)
+    score = sumArray(houseCards)
+    print(houseCards, score)
+  return score
