@@ -12,3 +12,11 @@ chips = 100
 
 def deal():
   return random.choice(cards)
+
+def payOut(houseScore, playerScore, chips, bet):
+  if playerScore > 21 or playerScore < houseScore:
+    print('you lost :(')
+  else:
+    chips += bet*2
+    print('you win! :D')
+  return chips
