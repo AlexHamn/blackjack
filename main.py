@@ -43,5 +43,6 @@ def play():
   houseScore = housePlay()
   playerScore = 18
   results = payOut(houseScore, playerScore, 90, 10)
+  print("player chips: " + str(results))
 
 print(play())
