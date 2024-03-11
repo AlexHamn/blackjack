@@ -39,4 +39,9 @@ chips = 100
 
 pot = 0
 
-print(housePlay())
+def play():
+  houseScore = housePlay()
+  playerScore = 18
+  results = payOut(houseScore, playerScore, 90, 10)
+
+print(play())
