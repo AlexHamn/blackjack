@@ -10,8 +10,9 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 chips = 100
 
-def deal():
-  return random.choice(cards)
+def deal(array):
+  array.append(random.choice(cards))
+  return array
 
 def payOut(houseScore, playerScore, chips, bet):
   if playerScore > 21 or playerScore < houseScore:
@@ -21,11 +22,16 @@ def payOut(houseScore, playerScore, chips, bet):
     print('you win! :D')
   return chips
 
-def housePlay(houseCards):
+def housePlay():
+  houseCards = []
+  houseCards = deal(houseCards)
+  houseCards = deal(houseCards)
   score = sumArray(houseCards)
   print(houseCards, score)
   while score < 17:
-    houseCards.append(deal)
+    houseCards = deal(houseCards)
     score = sumArray(houseCards)
     print(houseCards, score)
   return score
+
+print(housePlay())
