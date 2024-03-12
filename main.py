@@ -6,14 +6,14 @@ def sumArray(array):
     result += i
   return result
 
-def deal(array):
-  array.append(random.choice(cards))
-  return array
+def deal():
+  deck = []
+  deck.append(random.choice(cards))
+  deck.append(random.choice(cards))
+  return deck
 
 def housePlay():
-  houseCards = []
-  houseCards = deal(houseCards)
-  houseCards = deal(houseCards)
+  houseCards = deal()
   score = sumArray(houseCards)
   print(houseCards, score)
   while score < 17:
@@ -21,6 +21,9 @@ def housePlay():
     score = sumArray(houseCards)
     print(houseCards, score)
   return score
+
+def playerTurn():
+  playerCards = deal()
 
 def payOut(houseScore, playerScore, playerChips, bet):
   if playerScore > 21 or playerScore < houseScore:
@@ -33,16 +36,16 @@ def payOut(houseScore, playerScore, playerChips, bet):
     print('You win! :D')
   return playerChips
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-
-chips = 100
-
-pot = 0
-
 def play():
   houseScore = housePlay()
   playerScore = 18
   results = payOut(houseScore, playerScore, 90, 10)
   print("player chips: " + str(results))
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+chips = 100
+
+pot = 0
 
 print(play())
