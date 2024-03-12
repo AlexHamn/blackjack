@@ -6,6 +6,10 @@ def sumArray(array):
     result += i
   return result
 
+def anotherCard(deck):
+  deck.append(random.choice(cards))
+  return deck
+
 def deal():
   deck = []
   deck.append(random.choice(cards))
