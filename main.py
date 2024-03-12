@@ -31,12 +31,17 @@ def housePlay(houseCards):
     print(f"House cards: {houseCards, score}")
   return score
 
-def playerTurn():
+def bet():
   global chips
-  playing = True
+  print(f"Remaining chips: {chips}")
   bet = int(input("place your bet"))
   chips = chips - bet
   print(f"Remaining chips: {chips}")
+  return bet
+
+def playerTurn():
+  bet = bet()
+  playing = True
   playerCards = deal()
   print(playerCards)
   extraCard = input("another card?(y/n)")
@@ -65,6 +70,7 @@ def payOut(houseScore, playerScore, playerChips, bet):
   return playerChips
 
 def play():
+  houseCards = houseCards()
   playerScore = playerTurn()
   houseScore = housePlay()
   results = payOut(houseScore, playerScore, 90, 10)
