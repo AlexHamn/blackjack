@@ -36,7 +36,12 @@ def housePlay(houseCards):
 def placeBet():
   global chips
   print(f"Remaining chips: {chips}")
-  bet = int(input("place your bet"))
+  while True:
+    try:
+      bet = int(input("place your bet"))
+      break
+    except ValueError:
+      print("Invalid input. Please enter a number.")
   chips = chips - bet
   print(f"Remaining chips: {chips}")
   return bet, chips
