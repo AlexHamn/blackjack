@@ -26,21 +26,22 @@ def housePlay(houseCards):
   score = sumArray(houseCards)
   
   while score < 17:
+    print(f"House cards: {houseCards, score}")
     houseCards = anotherCard(houseCards)
     score = sumArray(houseCards)
     print(f"House cards: {houseCards, score}")
   return score
 
-def bet():
+def placeBet():
   global chips
   print(f"Remaining chips: {chips}")
   bet = int(input("place your bet"))
   chips = chips - bet
   print(f"Remaining chips: {chips}")
-  return bet
+  return bet, chips
 
 def playerTurn():
-  bet = bet()
+  bet, chips = placeBet()
   playing = True
   playerCards = deal()
   print(playerCards)
@@ -53,27 +54,30 @@ def playerTurn():
       print(f"Your cards: {playerCards}")
       extraCard = input("another card?(Y/N)")
     else:
-      playerScore = sumArray(playerCards)
+      playerScore = int(sumArray(playerCards))
       playing = False
   
-  return playerScore
+  return playerScore, bet, chips
 
-def payOut(houseScore, playerScore, playerChips, bet):
-  if playerScore > 21 or playerScore < houseScore:
+def payOut(houseScore, playerScore, bet, chips):
+  if houseScore > 21:
+    chips += bet*2
+    print('You win! :D')
+  elif playerScore > 21 or playerScore < houseScore:
     print('you lost :(')
-  elif playerScore == 21 and houseScore == 21:
-    playerChips += bet
+  elif playerScore == houseScore:
+    chips += bet
     print('Its a push :l')
   else: 
-    playerChips += bet*2
+    chips += bet*2
     print('You win! :D')
-  return playerChips
+  return chips
 
 def play():
-  houseCards = houseCards()
-  playerScore = playerTurn()
-  houseScore = housePlay()
-  results = payOut(houseScore, playerScore, 90, 10)
+  houseCards = houseStart()
+  playerScore, bet, chips = playerTurn()
+  houseScore = housePlay(houseCards)
+  results = payOut(houseScore, playerScore, bet, chips)
   print("player chips: " + str(results))
   return chips
 
@@ -83,4 +87,4 @@ chips = 100
 
 pot = 0
 
-houseStart()
+play()
