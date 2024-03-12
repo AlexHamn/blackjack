@@ -24,6 +24,7 @@ def houseStart():
 def housePlay(houseCards):
   houseCards = houseCards
   score = sumArray(houseCards)
+  print(f"House cards: {houseCards, score}")
   
   while score < 17:
     print(f"House cards: {houseCards, score}")
@@ -45,17 +46,19 @@ def playerTurn():
   playing = True
   playerCards = deal()
   print(playerCards)
-  extraCard = input("another card?(y/n)")
+  extraCard = "n"
   
   while playing:
+    playerScore = int(sumArray(playerCards))
+    if playerScore > 20:
+      playing = False
     if extraCard == "y":
       playerCards = anotherCard(playerCards)
-      playerScore = sumArray(playerCards)
-      print(f"Your cards: {playerCards}")
-      extraCard = input("another card?(Y/N)")
-    else:
       playerScore = int(sumArray(playerCards))
+      print(f"Your cards: {playerCards}")
+    else:
       playing = False
+    extraCard = input("another card?(Y/N)")
   
   return playerScore, bet, chips
 
