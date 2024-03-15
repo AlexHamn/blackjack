@@ -48,23 +48,23 @@ def playerTurn(cards, chips):
   bet, chips = placeBet(chips)
   playing = True
   playerCards = deal(cards)
-  print(playerCards)
+  #print(f"Your cards: {playerCards}")
   extraCard = "n"
   
   while playing:
     playerScore = int(sumArray(playerCards))
-    if playerScore > 20:
-      playing = False
+
     if extraCard == "y":
       playerCards = anotherCard(playerCards, cards)
-      playerScore = int(sumArray(playerCards))
       print(f"Your cards: {playerCards}")
-    else:
+      playerScore = int(sumArray(playerCards))
+    if playerScore > 20 or extraCard == "n":
+      print(f"Your cards: {playerCards}")
       playing = False
     extraCard = input("another card?(Y/N)")
     
   
-  return playerScore, bet, chips
+  return playerScore, bet, chips, playerCards
 
 def payOut(houseScore, playerScore, bet, chips):
   if playerScore == 21:
@@ -86,9 +86,10 @@ def payOut(houseScore, playerScore, bet, chips):
 def game(chips):
   cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
   houseCards = houseStart(cards)
-  playerScore, bet, remainingChips = playerTurn(cards, chips)
+  playerScore, bet, remainingChips, playerCards = playerTurn(cards, chips)
   houseScore = housePlay(houseCards, cards)
   results = payOut(houseScore, playerScore, bet, remainingChips)
+  #print(f"Your cards: {playerCards}")
   print("player chips: " + str(results))
   return results
 
@@ -99,5 +100,7 @@ def play():
   
   while chips > 0:
     chips = game(chips)
-    
-play()
+  
+playerTurn([11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10], 100)
+   
+#play()
