@@ -36,7 +36,7 @@ def placeBet(chips):
   print(f"Remaining chips: {chips}")
   while True:
     try:
-      bet = int(input("place your bet"))
+      bet = int(input("place your bet "))
       break
     except ValueError:
       print("Invalid input. Please enter a number.")
@@ -62,11 +62,15 @@ def playerTurn(cards, chips):
     else:
       playing = False
     extraCard = input("another card?(Y/N)")
+    
   
   return playerScore, bet, chips
 
 def payOut(houseScore, playerScore, bet, chips):
-  if houseScore > 21:
+  if playerScore == 21:
+    print("Blackjack! You win!")
+    chips += bet * 2
+  elif houseScore > 21:
     chips += bet*2
     print('You win! :D')
   elif playerScore > 21 or playerScore < houseScore:
@@ -82,11 +86,11 @@ def payOut(houseScore, playerScore, bet, chips):
 def game(chips):
   cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
   houseCards = houseStart(cards)
-  playerScore, bet, chips = playerTurn(cards, chips)
+  playerScore, bet, remainingChips = playerTurn(cards, chips)
   houseScore = housePlay(houseCards, cards)
-  results = payOut(houseScore, playerScore, bet, chips)
+  results = payOut(houseScore, playerScore, bet, remainingChips)
   print("player chips: " + str(results))
-  return chips
+  return results
 
 def play():
   chips = 100
@@ -94,6 +98,6 @@ def play():
   again = True
   
   while chips > 0:
-    game(chips)
+    chips = game(chips)
     
 play()
