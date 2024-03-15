@@ -6,35 +6,33 @@ def sumArray(array):
     result += i
   return result
 
-def anotherCard(deck):
+def anotherCard(deck, cards):
   deck.append(random.choice(cards))
   return deck
 
-def deal():
+def deal(cards):
   deck = []
   deck.append(random.choice(cards))
   deck.append(random.choice(cards))
   return deck
 
-def houseStart():
-  houseCards = deal()
+def houseStart(cards):
+  houseCards = deal(cards)
   print(f"House cards: ?, {houseCards[0]}")
   return houseCards
 
-def housePlay(houseCards):
-  houseCards = houseCards
+def housePlay(houseCards, cards):
   score = sumArray(houseCards)
   print(f"House cards: {houseCards, score}")
   
   while score < 17:
     print(f"House cards: {houseCards, score}")
-    houseCards = anotherCard(houseCards)
+    houseCards = anotherCard(houseCards, cards)
     score = sumArray(houseCards)
     print(f"House cards: {houseCards, score}")
   return score
 
-def placeBet():
-  global chips
+def placeBet(chips):
   print(f"Remaining chips: {chips}")
   while True:
     try:
@@ -46,10 +44,10 @@ def placeBet():
   print(f"Remaining chips: {chips}")
   return bet, chips
 
-def playerTurn():
-  bet, chips = placeBet()
+def playerTurn(cards, chips):
+  bet, chips = placeBet(chips)
   playing = True
-  playerCards = deal()
+  playerCards = deal(cards)
   print(playerCards)
   extraCard = "n"
   
@@ -58,7 +56,7 @@ def playerTurn():
     if playerScore > 20:
       playing = False
     if extraCard == "y":
-      playerCards = anotherCard(playerCards)
+      playerCards = anotherCard(playerCards, cards)
       playerScore = int(sumArray(playerCards))
       print(f"Your cards: {playerCards}")
     else:
@@ -81,18 +79,21 @@ def payOut(houseScore, playerScore, bet, chips):
     print('You win! :D')
   return chips
 
-def play():
-  houseCards = houseStart()
-  playerScore, bet, chips = playerTurn()
-  houseScore = housePlay(houseCards)
+def game(chips):
+  cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+  houseCards = houseStart(cards)
+  playerScore, bet, chips = playerTurn(cards, chips)
+  houseScore = housePlay(houseCards, cards)
   results = payOut(houseScore, playerScore, bet, chips)
   print("player chips: " + str(results))
   return chips
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-
-chips = 100
-
-pot = 0
-
+def play():
+  chips = 100
+  pot = 0
+  again = True
+  
+  while chips > 0:
+    game(chips)
+    
 play()
